@@ -16,6 +16,8 @@ spec:
       - name: auth
         image: us.gcr.io/ticketing-391722/auth
         env:
+        - name: AUTH_URI
+          value: 'mongodb://auth-mongo-srv:27017/auth'
         - name: JWT_KEY
           valueFrom:
             secretKeyRef:
