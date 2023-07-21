@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const buildClient = ({ req }) => {  
-    
+    try{
     if (typeof window === "undefined") {
+      console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         const headers = req.headers;
       //we are on the server
       return axios.create({
@@ -15,6 +16,9 @@ const buildClient = ({ req }) => {
         baseURL: "/",
       }); //we are on the browser
     }  
+  }catch(error){
+    console.log("I blew up in build client");
+  }
 };
 
 export default buildClient;

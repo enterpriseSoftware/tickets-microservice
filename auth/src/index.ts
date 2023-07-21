@@ -10,7 +10,7 @@ const start = async () => {
     await mongoose.connect("mongodb://auth-mongo-srv:27017/auth");
     console.log("Connected to MongoDB");
   } catch (err) {
-    console.log(err);
+    console.log("Trouble inside index.ts mongo connection");
   }
   app.listen(3000, () => {
     console.log("Auth Service Listening on port 3000");

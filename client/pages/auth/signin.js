@@ -1,48 +1,44 @@
-import { useState } from "react";
-import Router from "next/router";
+import { useState, useEffect } from 'react';
+import Router from 'next/router';
 import useRequest from '../../hooks/use-requests';
 
-const signin = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+export default () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const { doRequest, errors } = useRequest({
-    url: "/api/users/signin",
-    method: "post",
+    url: '/api/users/signin',
+    method: 'post',
     body: {
       email,
-      password,
+      password
     },
-    onSuccess: () =>{ Router.push("/")}
-    
+    onSuccess: () => Router.push('/')
   });
 
-  const onSubmit = async (e) => {
-    e.preventDefault();    
-    doRequest();
+  const onSubmit = async event => {
+    event.preventDefault();
+
+    await doRequest();
   };
+
   return (
     <form onSubmit={onSubmit}>
       <h1>Sign In</h1>
       <div className="form-group">
-        <label htmlFor="email">Email</label>
+        <label>Email Address</label>
         <input
-          type="email"
-          className="form-control"
-          id="email"
-          placeholder="Enter email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={e => setEmail(e.target.value)}
+          className="form-control"
         />
       </div>
       <div className="form-group">
-        <label htmlFor="password">Email</label>
+        <label>Password</label>
         <input
+          value={password}
+          onChange={e => setPassword(e.target.value)}
           type="password"
           className="form-control"
-          id="password"
-          placeholder="Enter password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
         />
       </div>
       {errors}
@@ -50,4 +46,3 @@ const signin = () => {
     </form>
   );
 };
-export default signin;

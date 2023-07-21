@@ -8,12 +8,13 @@ declare global {
 }
 
 let mongo: any;
-beforeAll(async () => {
+beforeAll(async () => {  
   process.env.JWT_KEY = "assdasdf";
   const mongo = await MongoMemoryServer.create();
   const mongoUri = mongo.getUri();
 
   await mongoose.connect(mongoUri, {});
+  console.log('made it through mongoose connect');
 });
 
 beforeEach(async () => {
@@ -22,6 +23,7 @@ beforeEach(async () => {
   for (let collection of collections) {
     await collection.deleteMany({});
   }
+  console.log("made it through beforeEach");
 });
 
 afterAll(async () => {
@@ -42,7 +44,7 @@ global.signup = async () => {
       password
     })
     .expect(201);
-
+ console.log('******** made it through global signup');
   const cookie = response.get("Set-Cookie");
   return cookie;
 };
