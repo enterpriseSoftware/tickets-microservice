@@ -2,7 +2,7 @@ import express from "express";
 import "express-async-errors";
 import { json } from "body-parser";
 import cookieSession from 'cookie-session'
-import { errorHandler } from "@enterprisesoftware/common";
+import { NotFoundError, errorHandler } from "@enterprisesoftware/common";
 
 
 const app = express();
@@ -14,10 +14,10 @@ app.use(cookieSession({
   // with http and not https.
 }));
 
-// app.all("*", async(req, res) => {
-//   console.log('Path Not Found')
-//   throw new NotFoundError();
-// });
+app.all("*", async(req, res) => {
+  console.log('Path Not Found')
+  throw new NotFoundError();
+});
 
 app.use(errorHandler);
 
